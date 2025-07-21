@@ -16,3 +16,20 @@ inline fun Connection.withTransaction(block: Connection.() -> Unit) {
         autoCommit = true
     }
 }
+
+inline fun notExtensionFunWithTransaction(connection: Connection, block: Connection.() -> Unit) {
+    connection.autoCommit = false
+    try {
+        block(connection)
+        connection.commit()
+    } catch (e: Exception) {
+        try {
+            connection.rollback()
+        } catch (rollbackException: Exception) {
+            e.addSuppressed(rollbackException)
+        }
+        throw e
+    } finally {
+        connection.autoCommit = true
+    }
+}
