@@ -1,7 +1,8 @@
 plugins {
     kotlin("jvm") version "2.1.21"
     `java-library`
-    id("org.jetbrains.kotlinx.kover") version "0.9.1"
+//    id("org.jetbrains.kotlinx.kover") version "0.9.1"
+    id("jacoco")
 }
 
 repositories {
@@ -23,14 +24,17 @@ java {
     }
 }
 
-kover {
-    useJacoco("0.8.13")
-}
+//kover {
+//    useJacoco("0.8.13")
+//}
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-tasks.check {
-    dependsOn(tasks.koverVerify)
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        html.required.set(true)
+    }
 }
