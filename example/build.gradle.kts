@@ -24,12 +24,16 @@ java {
     }
 }
 
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+}
+
 //kover {
 //    useJacoco("0.8.13")
 //}
 
-tasks.named<Test>("test") {
-    useJUnitPlatform()
+jacoco {
+    toolVersion = "0.8.13"
 }
 
 tasks.jacocoTestReport {
