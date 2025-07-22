@@ -1,8 +1,8 @@
 plugins {
     kotlin("jvm") version "2.1.21"
     `java-library`
-//    id("org.jetbrains.kotlinx.kover") version "0.9.1"
-    id("jacoco")
+    id("org.jetbrains.kotlinx.kover") version "0.9.1"
+//    id("jacoco")
 }
 
 repositories {
@@ -28,17 +28,17 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-//kover {
-//    useJacoco("0.8.13")
+kover {
+    useJacoco("0.8.13")
+}
+
+//jacoco {
+//    toolVersion = "0.8.13"
 //}
-
-jacoco {
-    toolVersion = "0.8.13"
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-    reports {
-        html.required.set(true)
-    }
-}
+//
+//tasks.jacocoTestReport {
+//    dependsOn(tasks.test)
+//    reports {
+//        html.required.set(true)
+//    }
+//}
